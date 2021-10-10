@@ -1,0 +1,41 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pre-commit = "*"
+pytest = "*"
+pytest-cov = "*"
+black = "*"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+requests = "*"
+tortoise-orm = "*"
+pytest = "*"
+pytest-cov = "*"
+jwt = "*"
+python-multipart = "*"
+PyJWT = "*"
+httpx = "*"
+asyncpg = "*"
+email-validator = "*"
+celery = "*"
+redis = "*"
+debugpy = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
+
+[packages.passlib]
+extras = [ "bcrypt",]
+version = "*"
+
+[packages.python-jose]
+extras = [ "cryptography",]
+version = "*"

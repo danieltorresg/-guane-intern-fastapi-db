@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  doggys-db-service:
+    depends_on:
+      - doggys-db-postgres
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: doggys_db_service
+    container_name: doggys_db_service_container
+    environment:
+      - WEB_APP_TITLE=guane Intern Fastapi
+      - WEB_APP_DESCRIPTION=This is a app about adopt dogs - Technical test
+      - WEB_APP_VERSION=1.0
+      - SECRET_KEY=cfd11da5af04ab43747b19afdddfb5a82914a793f21c5209b4c9e2ae3fcad009
+      - ALGORITHM=HS256
+      - DATABASE_URL=postgres://postgres:postgres@doggys_db_postgres_container:5432/doggys
+      - DATABASE_TEST_URL=sqlite://:memory
+      - IMAGE_API=https://dog.ceo/api/breeds/image/random
+      - INITIAL_EMAIL="init@mail.com"
+      - INITIAL_PASSWORD="SecurePassword"
+      - C_FORCE_ROOT=false
+      - DEBUGGER=False
+    ports:
+      - 8004:8004
+      - 10018:10018
+    env_file:
+      - .env
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8004
+    volumes:
+      - ./:/usr/src/app/
+    networks:
+      doggys-network:
+        aliases:
+          - doggys_db_service
+
+
+  doggys-db-postgres:
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    image: doggys_db_postgres
+    container_name: doggys_db_postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5433:5432
+    volumes:
+      - pgdata_doggys:/var/lib/postgresql/data
+    networks:
+      doggys-network:
+        aliases:
+          - doggys_db_postgres
+
+
+volumes:
+  pgdata_doggys:
+    external: true
+
+networks:
+  doggys-network:
+    external: true
