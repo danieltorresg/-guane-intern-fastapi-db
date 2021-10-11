@@ -43,4 +43,5 @@ class Responses:
             logger.error(f"{datetime.now()} - {response.json().get('detail', None)}")
             raise HTTPException(status_code=response.status_code, detail=content)
 
+
 responses: Responses = Responses()

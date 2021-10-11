@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import HTTPException
-from starlette.responses import Response, JSONResponse
+from starlette.responses import Response
 
 from app.infra.postgres.crud.base import CRUDBase
 from app.infra.postgres.models.user import User

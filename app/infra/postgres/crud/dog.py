@@ -6,7 +6,6 @@ from starlette.responses import Response
 from app.infra.postgres.crud.base import CRUDBase
 from app.infra.postgres.models.dog import Dog
 from app.schemas.dog import AdoptDog, CreateDog, UpdateDog
-from app.schemas.user import User
 from app.services.user import user_service
 
 
@@ -24,9 +23,7 @@ class CRUDDog(CRUDBase[Dog, CreateDog, UpdateDog]):
 
         if type(dog_data["in_charge_id"]) == int:
             if not await user_service.get_one_by_id(id=dog_data["in_charge_id"]):
-                raise HTTPException(
-                    status_code=409, detail="This dog is not yours"
-                )
+                raise HTTPException(status_code=409, detail="This dog is not yours")
         if type(dog_data["owner_id"]) == int:
             if not await user_service.get_one_by_id(id=dog_data["owner_id"]):
                 raise HTTPException(
@@ -51,10 +48,7 @@ class CRUDDog(CRUDBase[Dog, CreateDog, UpdateDog]):
             )
 
     async def update(
-        self,
-        *,
-        name: str,
-        obj_in: Union[UpdateDog, AdoptDog]
+        self, *, name: str, obj_in: Union[UpdateDog, AdoptDog]
     ) -> Union[dict, None]:
         dog_in_db = await self.get_by_element(name=name)
         dog_updated = await self.model.filter(name=name).update(

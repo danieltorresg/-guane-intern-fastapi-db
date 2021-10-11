@@ -1,10 +1,8 @@
 from typing import List, Optional, Union
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 
-from app.api import deps
-from app.schemas.dog import AdoptDog, BaseDog, CreateDog, Dog, UpdateDog
-from app.schemas.user import User
+from app.schemas.dog import AdoptDog, CreateDog, Dog, UpdateDog
 from app.services.dog import dog_service
 
 router = APIRouter()
@@ -52,11 +50,7 @@ async def get_is_adopted() -> Optional[Dog]:
         401: {"description": "User unauthorized"},
     },
 )
-async def adopt(
-    *,
-    name: str,
-    dog_info: AdoptDog
-) -> Optional[Dog]:
+async def adopt(*, name: str, dog_info: AdoptDog) -> Optional[Dog]:
     print(dog_info)
     dog = await dog_service.adopt(dog_info=dog_info, name=name)
     if dog:
@@ -89,11 +83,8 @@ async def get_by_name(*, name: str) -> Optional[Dog]:
         401: {"description": "User unauthorized"},
     },
 )
-async def create_by_name(
-    *,
-    dog_in: CreateDog
-) -> Optional[Dog]:
-    print (dog_in)
+async def create_by_name(*, dog_in: CreateDog) -> Optional[Dog]:
+    print(dog_in)
     dog = await dog_service.create_by_name(dog=dog_in)
     if dog:
         return dog
@@ -114,9 +105,7 @@ async def update_by_name(
     dog_in: UpdateDog,
     name: str,
 ) -> Optional[Dog]:
-    dog = await dog_service.update_by_name(
-        updated_dog=dog_in, name=name
-    )
+    dog = await dog_service.update_by_name(updated_dog=dog_in, name=name)
     if dog:
         return dog
     return None
@@ -131,9 +120,7 @@ async def update_by_name(
         401: {"description": "User unauthorized"},
     },
 )
-async def delete_by_name(
-    *, name: str
-) -> Optional[Dog]:
+async def delete_by_name(*, name: str) -> Optional[Dog]:
     deleted_response = await dog_service.delete(name=name)
     if deleted_response:
         return deleted_response
