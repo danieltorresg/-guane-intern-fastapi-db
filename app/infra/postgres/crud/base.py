@@ -15,13 +15,13 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     async def get_all(
         self,
         *,
-        content: dict = None,
+        payload: dict = None,
         skip: int = 0,
         limit: int = 50,
     ) -> List:
-        if content:
+        if payload:
             model = (
-                await self.model.filter(**content)
+                await self.model.filter(**payload)
                 .offset(skip)
                 .limit(limit)
                 .all()

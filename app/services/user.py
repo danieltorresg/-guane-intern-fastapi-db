@@ -1,4 +1,4 @@
-from typing import List, Optional, TypeVar, Union
+from typing import List, Dict, Any, Optional, TypeVar, Union
 
 from fastapi.exceptions import HTTPException
 from passlib.hash import bcrypt
@@ -18,8 +18,14 @@ class UserService:
     def __init__(self, user_query: QueryType):
         self.__user_query = user_query
 
-    async def get_all(self) -> Optional[List[User]]:
-        users = await self.__user_query.get_all()
+    async def get_all(
+        self,
+        payload: Optional[Dict[str, Any]],
+        skip: int = 0,
+        limit: int = 99999,
+        route: Optional[str] = "",
+    ) -> Optional[List[User]]:
+        users = await self.__user_query.get_all(payload=payload, skip=skip, limit=limit)
         return users
 
     async def create(self, new_user: CreateUser) -> Optional[User]:

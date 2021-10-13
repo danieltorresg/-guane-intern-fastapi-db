@@ -1,4 +1,4 @@
-from typing import List, Optional, TypeVar, Union
+from typing import Any, List, Dict, Optional, TypeVar, Union
 
 from app.infra.postgres.crud.base import CRUDBase
 from app.infra.postgres.crud.dog import dog
@@ -11,9 +11,21 @@ class DogService:
     def __init__(self, dog_query: QueryType):
         self.__dog_query = dog_query
 
-    async def get_all(self) -> Optional[List[Dog]]:
-        dogs = await self.__dog_query.get_all()
+    async def get_all(
+        self,
+        payload: Optional[Dict[str, Any]],
+        skip: int = 0,
+        limit: int = 99999,
+        route: Optional[str] = "",
+    ) -> Optional[List[Dog]]:
+        dogs = await self.__dog_query.get_all(payload=payload, skip=skip, limit=limit)
         return dogs
+
+
+
+
+
+
 
     async def create_by_name(self, *, dog: CreateDog) -> Union[dict, None]:
         print(dog)
