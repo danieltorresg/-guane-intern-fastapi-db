@@ -17,9 +17,11 @@ RUN apt-get update \
 RUN pip install --upgrade pip
 RUN pip install pipenv pytest
 COPY Pipfile* ./
-RUN pipenv lock -r > requirements.txt
+RUN pipenv lock --dev -r > requirements.txt
 RUN pip install -r requirements.txt
 
 # add app
 COPY . .
 EXPOSE 80
+# run entrypoint.sh for wait a conainer
+#ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

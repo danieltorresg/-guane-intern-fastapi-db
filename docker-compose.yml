@@ -21,7 +21,7 @@ services:
       - INITIAL_EMAIL="init@mail.com"
       - INITIAL_PASSWORD="SecurePassword"
       - C_FORCE_ROOT=false
-      - DEBUGGER=False
+      - DEBUGGER=True
     ports:
       - 8004:8004
       - 10018:10018

@@ -1,4 +1,1 @@
-from . import (
-    dog,
-    user
-)
+from . import dog, user

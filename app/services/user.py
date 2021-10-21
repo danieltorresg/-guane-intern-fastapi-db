@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Optional, TypeVar, Union
+from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from fastapi.exceptions import HTTPException
 from passlib.hash import bcrypt

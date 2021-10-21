@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  doggys-db-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: doggys_db_service
+    container_name: doggys_db_service_container
+    command: python -m pytest --cov="."
+    volumes:
+      - ./:/usr/src/app/
+    environment:
+      - WEB_APP_TITLE=guane Intern Fastapi
+      - WEB_APP_DESCRIPTION=This is a app about adopt dogs - Technical test
+      - WEB_APP_VERSION=1.0
+      - SECRET_KEY=cfd11da5af04ab43747b19afdddfb5a82914a793f21c5209b4c9e2ae3fcad009
+      - ALGORITHM=HS256
+      - DATABASE_URL=postgres://postgres:postgres@doggys_db_postgres_container:5432/doggys
+      - DATABASE_TEST_URL=sqlite://:memory
+      - IMAGE_API=https://dog.ceo/api/breeds/image/random
+      - INITIAL_EMAIL="init@mail.com"
+      - INITIAL_PASSWORD="SecurePassword"
+      - C_FORCE_ROOT=false
+      - DEBUGGER=True
+    ports:
+      - 10018:10018

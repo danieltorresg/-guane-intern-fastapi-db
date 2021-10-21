@@ -33,6 +33,7 @@ class DogInDB(CreateDog):
     created_date: datetime
     is_adopted: bool
 
+
 class PayloadDog(BaseModel):
     name: Optional[str]
     owner_id: Optional[int]

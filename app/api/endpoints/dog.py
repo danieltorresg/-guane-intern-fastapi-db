@@ -3,9 +3,9 @@ from typing import List, Optional, Union
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.param_functions import Depends
 
+from app.api.params.query import QueryPayloadDog
 from app.schemas.dog import AdoptDog, CreateDog, Dog, UpdateDog
 from app.services.dog import dog_service
-from app.api.params.query import QueryPayloadDog
 
 router = APIRouter()
 
@@ -25,7 +25,9 @@ async def get_all(
     skip: int = Query(0),
     limit: int = Query(99999),
 ) -> Optional[List[Dog]]:
-    dogs = await dog_service.get_all(skip=skip, limit=limit, payload=doggys_in.dict(exclude_none=True))
+    dogs = await dog_service.get_all(
+        skip=skip, limit=limit, payload=doggys_in.dict(exclude_none=True)
+    )
     if dogs:
         return dogs
     else:

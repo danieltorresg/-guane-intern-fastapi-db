@@ -16,18 +16,28 @@ class QueryPayloadDog(schemas.dog.PayloadDog):
         in_charge_id: Optional[int] = Query(None),
         is_adopted: Optional[bool] = Query(None),
     ):
-        return cls(name=name, owner_id=owner_id, in_charge_id=in_charge_id, is_adopted=is_adopted)
+        return cls(
+            name=name,
+            owner_id=owner_id,
+            in_charge_id=in_charge_id,
+            is_adopted=is_adopted,
+        )
 
 
 class QueryPayloadUser(schemas.user.PayloadUser):
     @classmethod
     async def as_query(
         cls,
-
         name: Optional[str] = Query(None),
         last_name: Optional[str] = Query(None),
         email: Optional[EmailStr] = Query(None),
         is_active: Optional[bool] = Query(None),
         created_date: Optional[datetime] = Query(None),
     ):
-        return cls(name=name, last_name=last_name, email=email, is_active=is_active, created_date=created_date)
+        return cls(
+            name=name,
+            last_name=last_name,
+            email=email,
+            is_active=is_active,
+            created_date=created_date,
+        )

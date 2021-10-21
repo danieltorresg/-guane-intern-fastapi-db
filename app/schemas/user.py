@@ -38,6 +38,5 @@ class PayloadUser(BaseModel):
     created_date: Optional[datetime]
 
 
-
 class User(UserInDB):
     pass
