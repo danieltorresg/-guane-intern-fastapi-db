@@ -7,8 +7,8 @@ verify_ssl = true
 pre-commit = "*"
 pytest = "*"
 pytest-cov = "*"
-black = "*"
 asynctest = "*"
+black = "==21.9b0"
 
 [packages]
 fastapi = "*"
@@ -25,6 +25,7 @@ asyncpg = "*"
 email-validator = "*"
 celery = "*"
 debugpy = "*"
+redis = "*"
 
 [requires]
 python_version = "3.8"
